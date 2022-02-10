@@ -1,14 +1,13 @@
 var express = require('express');
-const { route } = require('express/lib/application');
 var router = express.Router();
 const Validator = require('fastest-validator');
 
-const {Product} = require('../models');
+const { Product } = require('../models');
 
 const v = new Validator();
 
 // get data 
-router.get('/', async (req, res)=>{
+router.get('/', async (req, res) => {
     const products = await Product.findAll();
 
     return res.json(products)
@@ -32,7 +31,7 @@ router.post('/', async (req, res) => {
 
     const validate = v.validate(req.body, schema);
 
-    if (validate .length){
+    if (validate.length) {
         return res
             .status(400)
             .json(validate);
@@ -52,19 +51,19 @@ router.put('/:id', async (req, res) => {
     let product = await Product.findByPk(id);
 
     if (!product) {
-        return res.json({message: "Product not found"});
+        return res.json({ message: "Product not found" });
     }
     // res.send('berhasil')
     // jika id data sudah ada 
     // membuat validasi
     const schema = {
-        name : 'string|optional',
+        name: 'string|optional',
         brand: 'string|optional',
         description: 'string|optional'
     }
 
     const validate = v.validate(req.body, schema);
-    if (validate.length){
+    if (validate.length) {
         return res
             .status(400)
             .json(validate);
@@ -80,8 +79,8 @@ router.delete('/:id', async (req, res) => {
     const id = req.params.id;
 
     const product = await Product.findByPk(id);
-    if(!product){
-        return res.json({message: 'product not found'})
+    if (!product) {
+        return res.json({ message: 'product not found' })
     }
 
     await product.destroy();
