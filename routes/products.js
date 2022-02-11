@@ -87,8 +87,8 @@ router.delete('/:id', async (req, res) => {
 
     res.json({
         message: 'product is deleted!'
-    })
-})
+    });
+});
 
 
 module.exports = router;
