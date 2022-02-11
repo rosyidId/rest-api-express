@@ -28,6 +28,19 @@ router.post('/', async (req, res) => {
     res.json(costumer);
 })
 
+// get data
+router.get('/', async (req, res) => {
+    const costumers = await Costumer.findAll();
 
+    return res.json(costumers)
+})
+
+// list per id
+router.get('/:id', async (req, res)=>{
+    const id = req.params.id;
+    const costumer = await Costumer.findByPk(id)
+
+    return res.json(costumer || {})
+})
 
 module.exports = router
